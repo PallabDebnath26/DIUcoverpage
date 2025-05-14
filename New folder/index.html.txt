@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DIU Cover Page Generator</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+    .container {
+      background: white;
+      max-width: 600px;
+      margin: auto;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>DIU Cover Page Generator</h2>
+    <form id="coverForm">
+      <label for="studentName">Student Name</label>
+      <input type="text" id="studentName" required>
+
+      <label for="studentID">Student ID</label>
+      <input type="text" id="studentID" required>
+
+      <label for="courseTitle">Course Title</label>
+      <input type="text" id="courseTitle" required>
+
+      <label for="courseCode">Course Code</label>
+      <input type="text" id="courseCode" required>
+
+      <label for="topic">Assignment Topic</label>
+      <input type="text" id="topic" required>
+
+      <label for="teacherName">Teacher Name</label>
+      <input type="text" id="teacherName" required>
+
+      <label for="date">Submission Date</label>
+      <input type="date" id="date" required>
+
+      <button type="submit">Generate PDF</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("coverForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      const studentName = document.getElementById("studentName").value;
+      const studentID = document.getElementById("studentID").value;
+      const courseTitle = document.getElementById("courseTitle").value;
+      const courseCode = document.getElementById("courseCode").value;
+      const topic = document.getElementById("topic").value;
+      const teacherName = document.getElementById("teacherName").value;
+      const date = document.getElementById("date").value;
+
+      doc.setFontSize(18);
+      doc.text("Daffodil International University", 50, 30, { align: 'center' });
+      doc.setFontSize(14);
+      doc.text(`Course Title: ${courseTitle}`, 20, 60);
+      doc.text(`Course Code: ${courseCode}`, 20, 70);
+      doc.text(`Assignment Topic: ${topic}`, 20, 80);
+      doc.text(`Student Name: ${studentName}`, 20, 100);
+      doc.text(`Student ID: ${studentID}`, 20, 110);
+      doc.text(`Teacher Name: ${teacherName}`, 20, 120);
+      doc.text(`Submission Date: ${date}`, 20, 130);
+
+      doc.save("DIU_Cover_Page.pdf");
+    });
+  </script>
+</body>
+</html>
